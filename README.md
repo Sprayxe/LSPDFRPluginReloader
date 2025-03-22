@@ -26,7 +26,7 @@ All you gotta do when working on your plugin is to update your `.dll` (and `.pdb
 There are three commands that can be executed using the in-game rage console:
 - `UnloadLSPDFRPlugin(string pluginName)`: Unloads an active LSPDFR plugin.
 - `LoadLSPDFRPlugin(string pluginName)`: Loads an inactive LSPDFR plugin.
-- `ReloadLSPDFRPlugin(string pluginName)`: Unloads an active LSPDFR plugin and loads it right-away.\
+- `ReloadLSPDFRPlugin(string pluginName)`: Unloads an active LSPDFR plugin and loads it right-away.
 <br>
 
 As already mentioned, I do not take any responsibility for game crashes and other issues you might experience when using this. I am not affiliated with Rockstar, RagePluginHook or LSPDFR.\
