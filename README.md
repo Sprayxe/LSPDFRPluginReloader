@@ -1,14 +1,14 @@
 # LSPDFR Plugin Reloader
 
-Exactly, what the name states: This [LSPDFR](https://www.lcpdfr.com/) plugin allows you do dynamically unload, load and reload LSPDFR plugins without having to reload whole LSPDFR!\
+Exactly what the name says: This [LSPDFR](https://www.lcpdfr.com/) plugin allows you do dynamically unload, load and reload LSPDFR plugins without having to reload whole LSPDFR!\
 It works by using Reflection to access certain internal fields of LSPDFR and editing it's values, as well as invoking methods and events.
 
 ## Important
 As you might have already guessed, this plugin is **very experimental**, so use it **at your own risk and with caution**.
-- Be aware that I have unfortunately no way of unregistering console commands, so if your plugin has console commands, they will be registered as duplicates by RPH.
+- Be aware that there is unfortunately no way of unregistering console commands (at least none I know of), so if your plugin has console commands, they will be registered as duplicates by RPH.
 - It is very obvious that (re-)loading plugins on the fly way too often could lead to instability and performance issues or even crash your game.\
   Unfortunately, since .NET does not (directly) allow unloading assemblies from memory, those will stay in memory once loaded which leads to memory leaks.\
-  To prevent such performance and memory leak issues, it is **strongly recommended** to reload LSPDFR from time to time (the plugin will warn you about that via a notification once you pass a certain loading threshold).
+  To prevent such possible performance and memory leak issues, it is **strongly recommended** to reload LSPDFR from time to time (the plugin will warn you about that via a notification once you pass a certain loading threshold).
 - **It is also your responsibility to properly clean up your plugin; that means stopping fibers and cleaning up other resources!!!** This plugin invokes the `OnOnDutyStateChanged(false)` event (only for your plugin) and calls your plugin's `Finally()` method upon unloading.
 
 ## Installation
