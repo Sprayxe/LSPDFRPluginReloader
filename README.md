@@ -22,7 +22,7 @@ As of writing this, the bindings match build `0.4.9110.41894`.
 4. Copy the `.dll` and `.pdb` into `plugins/LSPDFR` like any other LSPDFR plugin.
 
 ## How to use it
-All you gotta do when working on your plugin is to update your `.dll` (and `.pdb`) in `plugins/LSPDFR` and execute on of the following commands.\
+All you gotta do when working on your plugin is to update your `.dll` (and `.pdb`) in `plugins/LSPDFR` and execute one of the following commands.\
 There are three commands that can be executed using the in-game rage console:
 - `UnloadLSPDFRPlugin(string pluginName)`: Unloads an active LSPDFR plugin.
 - `LoadLSPDFRPlugin(string pluginName)`: Loads an inactive LSPDFR plugin.
