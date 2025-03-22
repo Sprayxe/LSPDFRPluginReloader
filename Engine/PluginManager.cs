@@ -171,9 +171,9 @@ internal static class PluginManager
         List<Plugin> createdPlugins = [];
         foreach (Type pluginType in loadedPlugins) // Create instances first
         {
-            Plugin reloadedPlugin = Activator.CreateInstance(pluginType) as Plugin;
-            Plugins.Add(reloadedPlugin);
-            createdPlugins.Add(reloadedPlugin);
+            Plugin loadedPlugin = Activator.CreateInstance(pluginType) as Plugin;
+            Plugins.Add(loadedPlugin);
+            createdPlugins.Add(loadedPlugin);
             LogDebug($"Created plugin '{pluginType.Name}'.");
         }
 
@@ -186,9 +186,9 @@ internal static class PluginManager
         if (EntryPoint.OnDutyState) // Eventually invoke the OnDuty event
         {
             Delegate[] invocationList = GetOnDutyDelegates(loadedAssembly);
-            foreach (Delegate del2 in invocationList)
+            foreach (Delegate del in invocationList)
             {
-                del2.DynamicInvoke(true);
+                del.DynamicInvoke(true);
                 LogDebug($"{assemblyName}: Successfully invoked on-duty event.");
             }
         }
