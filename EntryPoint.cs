@@ -4,11 +4,14 @@ using LSPDFRPluginReloader.AutoCompleters;
 using LSPDFRPluginReloader.Engine;
 using LSPDFRPluginReloader.Engine.Utility.Helpers;
 using Rage.Attributes;
+using Rage.ConsoleCommands.AutoCompleters;
 
 namespace LSPDFRPluginReloader;
 
 public class EntryPoint : Plugin
 {
+    private const string ForceGCDescription = "Whether to force garbage collection upon unloading.";
+    
     internal static bool OnDutyState;
     
     public override void Initialize()
@@ -24,7 +27,9 @@ public class EntryPoint : Plugin
     }
     
     [ConsoleCommand("Unloads a LSPDFR plugin. Made by MarcelWRLD.")]
-    internal static void UnloadLSPDFRPlugin([ConsoleCommandParameter(AutoCompleterType = typeof(AutoCompleterLSPDFRLoadedAssembly))] string pluginName)
+    internal static void UnloadLSPDFRPlugin(
+        [ConsoleCommandParameter(AutoCompleterType = typeof(AutoCompleterLSPDFRLoadedAssembly))] string pluginName,
+        [ConsoleCommandParameter(ForceGCDescription, AutoCompleterType = typeof(ConsoleCommandAutoCompleterBoolean))] bool forceGC = true)
     {
         Assembly plugin = AssemblyHelper.GetAssemblyByName(pluginName);
         if (plugin == null)
@@ -33,7 +38,7 @@ public class EntryPoint : Plugin
             return;
         }
 
-        PluginManager.Unload(plugin);
+        PluginManager.Unload(plugin, forceGC);
     }
 
     [ConsoleCommand("Loads a LSPDFR plugin from disk. Made by MarcelWRLD.")]
@@ -50,7 +55,9 @@ public class EntryPoint : Plugin
     }
 
     [ConsoleCommand("Unloads and then loads a LSPDFR plugin from disk. Made by MarcelWRLD.")]
-    internal static void ReloadLSPDFRPlugin([ConsoleCommandParameter(AutoCompleterType = typeof(AutoCompleterLSPDFRLoadedAssembly))] string pluginName)
+    internal static void ReloadLSPDFRPlugin(
+        [ConsoleCommandParameter(AutoCompleterType = typeof(AutoCompleterLSPDFRLoadedAssembly))] string pluginName,
+        [ConsoleCommandParameter(ForceGCDescription, AutoCompleterType = typeof(ConsoleCommandAutoCompleterBoolean))] bool forceGC = true)
     {
         Assembly plugin = AssemblyHelper.GetAssemblyByName(pluginName);
         if (plugin == null)
@@ -59,7 +66,7 @@ public class EntryPoint : Plugin
             return;
         }
         
-        PluginManager.Reload(plugin);
+        PluginManager.Reload(plugin, forceGC);
     }
 
     private static void OnOnDutyStateChanged(bool onDuty)

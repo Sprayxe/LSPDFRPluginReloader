@@ -1,6 +1,6 @@
 # LSPDFR Plugin Reloader
 
-Exactly, what the name states: This [LSPDFR](https://www.lcpdfr.com/) plugin allows you do dynamically unload, load and reload LSPDFR plugins without having to reload whole LSPDFR!\
+Exactly, what the name states: This [LSPDFR](https://www.lcpdfr.com/) plugin allows you to dynamically unload, load and reload LSPDFR plugins without having to reload whole LSPDFR!\
 It works by using Reflection to access certain internal fields of LSPDFR and editing it's values, as well as invoking methods and events.
 
 ## Important
@@ -24,9 +24,9 @@ As of writing this, the bindings match build `0.4.9110.41894`.
 ## How to use it
 All you gotta do when working on your plugin is to update your `.dll` (and `.pdb`) in `plugins/LSPDFR` and execute one of the following commands.\
 There are three commands that can be executed using the in-game rage console:
-- `UnloadLSPDFRPlugin(string pluginName)`: Unloads an active LSPDFR plugin.
+- `UnloadLSPDFRPlugin(string pluginName, bool forceGC = true)`: Unloads an active LSPDFR plugin. If `forceGC` is `true`, it will trigger garbage collection which can help freeing memory based on testing.
 - `LoadLSPDFRPlugin(string pluginName)`: Loads an inactive LSPDFR plugin.
-- `ReloadLSPDFRPlugin(string pluginName)`: Unloads an active LSPDFR plugin and loads it right-away.
+- `ReloadLSPDFRPlugin(string pluginName, bool forceGC = true)`: Unloads an active LSPDFR plugin and loads it right-away. If `forceGC` is `true`, it will trigger garbage collection which can help freeing memory based on testing.
 <br>
 
 As already mentioned, I do not take any responsibility for game crashes and other issues you might experience when using this. I am not affiliated with Rockstar, RagePluginHook or LSPDFR.\

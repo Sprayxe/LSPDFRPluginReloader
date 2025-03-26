@@ -89,7 +89,7 @@ internal static class PluginManager
         AssertMemberBinding(_calloutsField, nameof(BCalloutManagerCallouts));
     }
 
-    internal static void Unload(Assembly assembly)
+    internal static void Unload(Assembly assembly, bool forceGC)
     {
         string asmName = assembly.ToName();
         LogDebug($"Unloading assembly '{asmName}'.");
@@ -135,6 +135,12 @@ internal static class PluginManager
                 Callouts.Remove(callout);
                 LogDebug($"{asmName}: Unloaded callout '{callout.Name}'.");
             }
+        }
+        
+        if (forceGC) 
+        {
+            LogDebug($"{asmName}: Triggering garbage collection.");
+            GC.Collect();
         }
         
         LogDebug($"Successfully unloaded assembly '{asmName}'.");
@@ -196,11 +202,11 @@ internal static class PluginManager
         LogDebug($"Successfully loaded assembly '{assemblyName}'.");
     }
     
-    internal static void Reload(Assembly assembly)
+    internal static void Reload(Assembly assembly, bool forceGC)
     {
         string asmName = assembly.ToName();
         LogDebug($"Reloading assembly '{asmName}'.");
-        Unload(assembly);
+        Unload(assembly, forceGC);
         Load(asmName);
         LogDebug($"Successfully reloaded assembly '{asmName}'.");
     }
