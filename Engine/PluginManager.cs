@@ -16,7 +16,7 @@ internal static class PluginManager
     // No update expected.
     private const string BOnDutyStateChanged = "OnOnDutyStateChanged";
     private const string BCalloutManagerPlugins = "plugins";
-    // These need to be updated everytime LSPDFR updates.
+    // These (LSPDFR Build 0.4.9110.41894) need to be updated everytime LSPDFR updates.
     // In the following you should always copy what is inside <...> into the related constants.
     // In order to find all of these you need to head to LSPD_First_Response.Mod.API.Functions and look for the 'GetAllUserPlugins()' method.
     // 1. There you should find something like: 'return <BCalloutManagerHolder>.CM_HOLDER_PROPERTY.CM_ASSEMBLIES_PROPERTY'
