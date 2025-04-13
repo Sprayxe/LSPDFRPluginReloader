@@ -19,19 +19,23 @@ internal static class PluginManager
     // These need to be updated everytime LSPDFR updates.
     // In the following you should always copy what is inside <...> into the related constants.
     // In order to find all of these you need to head to LSPD_First_Response.Mod.API.Functions and look for the 'GetAllUserPlugins()' method.
-    // 1. There you should find something like: 'return <BCalloutManagerHolder>.<BCalloutManagerInstance>.CM_ASSEMBLIES_PROPERTY'
+    // 1. There you should find something like: 'return <BCalloutManagerHolder>.CM_HOLDER_PROPERTY.CM_ASSEMBLIES_PROPERTY'
     //
-    // 2. CTRL+Click on 'CM_ASSEMBLIES_PROPERTY', this will take you to the <BCalloutManager> class,
-    //    you should find something like: 'public Assembly[] CM_ASSEMBLIES_PROPERTY => <BCalloutManager>.<BCalloutManagerAssemblies>;'
+    // 2. CTRL+Click on 'CM_HOLDER_PROPERTY', you should find something like:
+    //      - 'internal static <BCalloutManager> CM_HOLDER_PROPERTY'
+    //      - 'get { return <BCalloutManagerInstance>; }'
     //
-    // 3. Look in the <BCalloutManager> class for a field with this signature: 'private List<Type> <BCalloutManagerCallouts>;'.
+    // 3. CTRL+Click on 'CM_ASSEMBLIES_PROPERTY', this will take you to the <BCalloutManager> class,
+    //    you should find something like: 'public Assembly[] CM_ASSEMBLIES_PROPERTY => <BCalloutManagerAssemblies>;'
+    //
+    // 4. Look in the <BCalloutManager> class for a field with this signature: 'private List<Type> <BCalloutManagerCallouts>;'.
     //
     // There you go! :)
-    private const string BCalloutManager = "QxMDMFACgNcISQtSwygTMYJdYgIKA";
-    private const string BCalloutManagerHolder = "CyMfHWTDKXyJcWwwGoyseSoizxuk";
-    private const string BCalloutManagerInstance = "bAaFYejZPMWiDZpnWGrcBBQvLOpEb";
-    private const string BCalloutManagerAssemblies = "ANVHDiFmqacITzkvnJYlUhXFeEKT";
-    private const string BCalloutManagerCallouts = "RVNGUcbthhgjTPUlprtfWESIlkXS";
+    private const string BCalloutManager = "GGGgmqSptMDCWgeGXIYyYZkejcajA";
+    private const string BCalloutManagerHolder = "YFSEtzCTNOIVoQBanhURbrThdbAGc";
+    private const string BCalloutManagerInstance = "KzNjlABkMBJxUEaNigseFUzhveeHc";
+    private const string BCalloutManagerAssemblies = "SaJFrHhJblzKHbktIjkAbHeBOCqNc";
+    private const string BCalloutManagerCallouts = "JSTeeXJxocNvTPAhYfXQkDhLNgjFb";
     
     #endregion
     
@@ -39,10 +43,10 @@ internal static class PluginManager
     private static Type _lspdfrApi; // LSPD_First_Response.Mod.API.Functions
     private static EventInfo _onDutyEvent; // Event
     private static Type _lspdfrCalloutManager; // LSPD_First_Response.???
-    private static PropertyInfo _lspdfrCalloutManagerInstance; // internal static <_lspdfrCalloutManager> { get...; private set...; }
+    private static FieldInfo _lspdfrCalloutManagerInstance; // internal static <_lspdfrCalloutManager> { get...; set...; }
     private static FieldInfo _assembliesField; // private static Assembly[]
     private static FieldInfo _pluginsField; // private static List<Plugin>
-    private static FieldInfo _calloutsField; // private List<Type>
+    private static FieldInfo _calloutsField; // List<Type>
     
     private static List<Plugin> Plugins => _pluginsField.GetValue(null) as List<Plugin>;
     private static Assembly[] Assemblies => _assembliesField.GetValue(null) as Assembly[];
@@ -68,8 +72,8 @@ internal static class PluginManager
         Type lspdfrCalloutManagerHolderClass = _lspdfrAssembly.GetType(BCalloutManagerHolder);
         AssertTypeBinding(lspdfrCalloutManagerHolderClass, nameof(BCalloutManagerHolder));
         
-        // Find property of the ^above
-        _lspdfrCalloutManagerInstance = lspdfrCalloutManagerHolderClass.GetProperty(BCalloutManagerInstance, privateStaticBinds);
+        // Find field of the ^above
+        _lspdfrCalloutManagerInstance = lspdfrCalloutManagerHolderClass.GetField(BCalloutManagerInstance, privateStaticBinds);
         AssertMemberBinding(_lspdfrCalloutManagerInstance, nameof(BCalloutManagerInstance));
         
         // Find field in callout manager which stores all loaded assemblies
