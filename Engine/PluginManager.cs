@@ -16,7 +16,7 @@ internal static class PluginManager
     // No update expected.
     private const string BOnDutyStateChanged = "OnOnDutyStateChanged";
     private const string BCalloutManagerPlugins = "plugins";
-    // These (LSPDFR Build 0.4.9231.15468) need to be updated everytime LSPDFR updates.
+    // These (LSPDFR Build 0.4.9299.20427) need to be updated everytime LSPDFR updates.
     // In the following you should always copy what is inside <...> into the related constants.
     // In order to find all of these you need to head to LSPD_First_Response.Mod.API.Functions and look for the 'GetAllUserPlugins()' method.
     // 1. There you should find something like: 'return <BCalloutManagerHolder>.<BCalloutManagerInstance>.CM_ASSEMBLIES_PROPERTY'
@@ -27,11 +27,11 @@ internal static class PluginManager
     // 3. Look in the <BCalloutManager> class for a field with this signature: 'private List<Type> <BCalloutManagerCallouts>;'.
     //
     // There you go! :)
-    private const string BCalloutManager = "QxMDMFACgNcISQtSwygTMYJdYgIKA";
-    private const string BCalloutManagerHolder = "CyMfHWTDKXyJcWwwGoyseSoizxuk";
-    private const string BCalloutManagerInstance = "bAaFYejZPMWiDZpnWGrcBBQvLOpEb";
-    private const string BCalloutManagerAssemblies = "ANVHDiFmqacITzkvnJYlUhXFeEKT";
-    private const string BCalloutManagerCallouts = "RVNGUcbthhgjTPUlprtfWESIlkXS";
+    private const string BCalloutManager = "tUEATbDiDasmZFYisZGGeLJrXErA";
+    private const string BCalloutManagerHolder = "dxIbJMIvSZmtYuVoMjTdWKeMGOweA";
+    private const string BCalloutManagerInstance = "EGghWqmVJWUCxfprSdSbzrYBMrts";
+    private const string BCalloutManagerAssemblies = "jSPcJgSPguCsjLItrrxuaXBnmnGx";
+    private const string BCalloutManagerCallouts = "uTBErqqabbiTjfyfxWWsuYAqPbVL";
     
     #endregion
     
@@ -117,7 +117,6 @@ internal static class PluginManager
             
             plugin.Finally();
             Plugins.Remove(plugin);
-            _assembliesField.SetValue(null, Assemblies.Where(a => !a.Equals(assembly)).ToArray());
             
             LogDebug($"{asmName}: Unloaded plugin '{plugin.GetType().Name}'.");
         }
@@ -133,6 +132,7 @@ internal static class PluginManager
             }
         }
         
+        _assembliesField.SetValue(null, Assemblies.Where(a => !a.Equals(assembly)).ToArray());
         if (forceGC) 
         {
             LogDebug($"{asmName}: Triggering garbage collection.");

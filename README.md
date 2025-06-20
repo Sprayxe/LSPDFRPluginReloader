@@ -17,7 +17,7 @@ It doesn't use any extra dependencies besides [**RagePluginHook**](https://ragep
 1. Clone the repository.
 2. Make sure [these bindings](https://github.com/Sprayxe/LSPDFRPluginReloader/blob/master/Engine/PluginManager.cs#L19) are up-to-date with the LSPDFR build you are using.
 They need to be updated everytime the LSPDFR binary is updated as they change due to obfuscation. An explanation on how to find and update these strings is there too.\
-As of writing this, the bindings match build `0.4.9231.15468`.
+As of writing this, the bindings match build `0.4.9299.20427`.
 3. Compile!
 4. Copy the `.dll` and `.pdb` into `plugins/LSPDFR` like any other LSPDFR plugin.
 
