@@ -1,21 +1,21 @@
 ﻿using System;
-using System.Linq;
+using System.Reflection;
 using LSPDFRPluginReloader.Engine.Utility.Helpers;
 using Rage.ConsoleCommands;
 using Rage.ConsoleCommands.AutoCompleters;
 
 namespace LSPDFRPluginReloader.AutoCompleters;
 
-internal class AutoCompleterLSPDFRLoadedAssembly(Type type) : ConsoleCommandParameterAutoCompleter(type)
+internal sealed class AutoCompleterLSPDFRLoadedAssembly(Type type) : ConsoleCommandParameterAutoCompleter(type)
 {
     public override void UpdateOptions()
     {
         Options.Clear();
-        string[] plugins = AssemblyHelper.Loaded.Select(a => a.ToName()).ToArray();
-        
+
         // Add options.
-        foreach (string plugin in plugins)
+        foreach (Assembly assembly in AssemblyHelper.Loaded)
         {
+            string plugin = assembly.ToName();
             if (plugin == PluginName) continue;
             Options.Add(new AutoCompleteOption(plugin, plugin, $"'{plugin}' Plugin"));
         }

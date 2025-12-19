@@ -8,7 +8,7 @@ using Rage.ConsoleCommands.AutoCompleters;
 
 namespace LSPDFRPluginReloader.AutoCompleters;
 
-internal class AutoCompleterLSPDFRAssembly(Type type) : ConsoleCommandParameterAutoCompleter(type)
+internal sealed class AutoCompleterLSPDFRAssembly(Type type) : ConsoleCommandParameterAutoCompleter(type)
 {
     public override void UpdateOptions()
     {
